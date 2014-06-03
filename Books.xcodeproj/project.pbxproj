@@ -22,6 +22,9 @@
 		3E9D7738193D4369007B27AF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9D771C193D4369007B27AF /* CoreData.framework */; };
 		3E9D7740193D4369007B27AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3E9D773E193D4369007B27AF /* InfoPlist.strings */; };
 		3E9D7742193D4369007B27AF /* BooksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9D7741193D4369007B27AF /* BooksTests.m */; };
+		3E9D774C193D439B007B27AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E9D774B193D439B007B27AF /* Main.storyboard */; };
+		3E9D774F193D4802007B27AF /* MFDBookListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9D774E193D4802007B27AF /* MFDBookListTableViewController.m */; };
+		3E9D7752193D4825007B27AF /* MFDAddBookItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9D7751193D4825007B27AF /* MFDAddBookItemViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,11 @@
 		3E9D773D193D4369007B27AF /* BooksTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BooksTests-Info.plist"; sourceTree = "<group>"; };
 		3E9D773F193D4369007B27AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3E9D7741193D4369007B27AF /* BooksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BooksTests.m; sourceTree = "<group>"; };
+		3E9D774B193D439B007B27AF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		3E9D774D193D4802007B27AF /* MFDBookListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFDBookListTableViewController.h; sourceTree = "<group>"; };
+		3E9D774E193D4802007B27AF /* MFDBookListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFDBookListTableViewController.m; sourceTree = "<group>"; };
+		3E9D7750193D4825007B27AF /* MFDAddBookItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFDAddBookItemViewController.h; sourceTree = "<group>"; };
+		3E9D7751193D4825007B27AF /* MFDAddBookItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFDAddBookItemViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +123,11 @@
 		3E9D771E193D4369007B27AF /* Books */ = {
 			isa = PBXGroup;
 			children = (
+				3E9D774D193D4802007B27AF /* MFDBookListTableViewController.h */,
+				3E9D774E193D4802007B27AF /* MFDBookListTableViewController.m */,
+				3E9D7750193D4825007B27AF /* MFDAddBookItemViewController.h */,
+				3E9D7751193D4825007B27AF /* MFDAddBookItemViewController.m */,
+				3E9D774B193D439B007B27AF /* Main.storyboard */,
 				3E9D7727193D4369007B27AF /* MFDAppDelegate.h */,
 				3E9D7728193D4369007B27AF /* MFDAppDelegate.m */,
 				3E9D772D193D4369007B27AF /* Images.xcassets */,
@@ -229,6 +242,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E9D774C193D439B007B27AF /* Main.storyboard in Resources */,
 				3E9D7723193D4369007B27AF /* InfoPlist.strings in Resources */,
 				3E9D772E193D4369007B27AF /* Images.xcassets in Resources */,
 			);
@@ -249,6 +263,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E9D774F193D4802007B27AF /* MFDBookListTableViewController.m in Sources */,
+				3E9D7752193D4825007B27AF /* MFDAddBookItemViewController.m in Sources */,
 				3E9D7729193D4369007B27AF /* MFDAppDelegate.m in Sources */,
 				3E9D772C193D4369007B27AF /* Books.xcdatamodeld in Sources */,
 				3E9D7725193D4369007B27AF /* main.m in Sources */,
