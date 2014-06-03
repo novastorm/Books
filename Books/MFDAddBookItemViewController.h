@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MFDBook.h"
 
 @interface MFDAddBookItemViewController : UIViewController
+
+@property MFDBook *book;
 
 @end

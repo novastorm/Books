@@ -8,6 +8,7 @@
 
 #import "MFDBookListTableViewController.h"
 #import "MFDBook.h"
+#import "MFDAddBookItemViewController.h"
 
 @interface MFDBookListTableViewController ()
 
@@ -99,18 +100,17 @@
 }
 */
 
-/*
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        [self.books removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
 
 /*
 // Override to support rearranging the table view.
@@ -139,9 +139,19 @@
 }
 */
 
--(IBAction)createReturnToList:(UIStoryboardSegue *)segue
+-(IBAction)cancelCreateReturnToList:(UIStoryboardSegue *)segue
 {
     
+}
+
+-(IBAction)storeCreateReturnToList:(UIStoryboardSegue *)segue
+{
+    MFDAddBookItemViewController *source = [segue sourceViewController];
+    MFDBook *book = source.book;
+    if (book != nil) {
+        [self.books addObject:book];
+        [self.tableView reloadData];
+    }
 }
 
 @end

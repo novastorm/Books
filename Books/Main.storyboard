@@ -328,15 +328,20 @@
                     <navigationItem key="navigationItem" title="New Book" id="yyG-57-cC3">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="A0E-KM-I84">
                             <connections>
-                                <segue destination="hXR-oJ-YTb" kind="unwind" unwindAction="createReturnToList:" id="owC-93-07T"/>
+                                <segue destination="hXR-oJ-YTb" kind="unwind" unwindAction="cancelCreateReturnToList:" id="Kvj-y3-IHS"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="kPa-BV-fQo">
                             <connections>
-                                <segue destination="hXR-oJ-YTb" kind="unwind" unwindAction="createReturnToList:" id="HBe-RZ-gPl"/>
+                                <segue destination="hXR-oJ-YTb" kind="unwind" unwindAction="storeCreateReturnToList:" id="DCt-eJ-Opf"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="authorField" destination="IZ7-gj-46Z" id="i7J-68-q6m"/>
+                        <outlet property="saveButton" destination="kPa-BV-fQo" id="QAb-pL-QfM"/>
+                        <outlet property="titleField" destination="NXA-lA-xdL" id="8Cv-PW-ek8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ybh-Pz-C4b" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="hXR-oJ-YTb" userLabel="Exit" sceneMemberID="exit"/>

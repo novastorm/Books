@@ -10,6 +10,10 @@
 
 @interface MFDAddBookItemViewController ()
 
+@property (weak, nonatomic) IBOutlet UITextField *titleField;
+@property (weak, nonatomic) IBOutlet UITextField *authorField;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
+
 @end
 
 @implementation MFDAddBookItemViewController
@@ -45,5 +49,19 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if (sender != self.saveButton) {
+        return;
+    }
+    
+    if (self.titleField.text.length > 0
+        || self.authorField.text.length > 0) {
+        self.book = [[MFDBook alloc] init];
+        self.book.title = self.titleField.text;
+        self.book.author = self.authorField.text;
+    }
+}
 
 @end
