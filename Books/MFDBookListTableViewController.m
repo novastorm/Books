@@ -7,8 +7,11 @@
 //
 
 #import "MFDBookListTableViewController.h"
+#import "MFDBook.h"
 
 @interface MFDBookListTableViewController ()
+
+@property NSMutableArray *books;
 
 @end
 
@@ -32,6 +35,27 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.books = [[NSMutableArray alloc] init];
+    [self loadInitialData];
+}
+
+- (void)loadInitialData {
+    MFDBook *item1 = [[MFDBook alloc] init];
+    item1.title = @"AAAA";
+    item1.author = @"Alpha";
+    [self.books addObject:item1];
+    
+    MFDBook *item2 = [[MFDBook alloc] init];
+    item2.title = @"BBBB";
+    item2.author = @"Bravo";
+    [self.books addObject:item2];
+
+    MFDBook *item3 = [[MFDBook alloc] init];
+    item3.title = @"CCCC";
+    item3.author = @"Charlie";
+    [self.books addObject:item3];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,28 +68,27 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [self.books count];
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    static NSString *cellIdentifier = @"ListPrototypeCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
+    MFDBook *book = [self.books objectAtIndex:indexPath.row];
+    cell.textLabel.text = book.title;
     
     return cell;
 }
-*/
 
 /*
 // Override to support conditional editing of the table view.
