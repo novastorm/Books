@@ -245,7 +245,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Authors" id="P3f-SD-yFI">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="fTh-Fi-S5O"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="csj-5a-R8X">
                             <connections>
                                 <segue destination="23B-Cz-LK7" kind="modal" id="hye-V6-JcA"/>
