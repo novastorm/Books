@@ -25,6 +25,7 @@
 		3E9D774C193D439B007B27AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E9D774B193D439B007B27AF /* Main.storyboard */; };
 		3E9D774F193D4802007B27AF /* MFDBookListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9D774E193D4802007B27AF /* MFDBookListTableViewController.m */; };
 		3E9D7752193D4825007B27AF /* MFDAddBookItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9D7751193D4825007B27AF /* MFDAddBookItemViewController.m */; };
+		3E9D7755193D4E47007B27AF /* MFDBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9D7754193D4E47007B27AF /* MFDBook.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,8 @@
 		3E9D774E193D4802007B27AF /* MFDBookListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFDBookListTableViewController.m; sourceTree = "<group>"; };
 		3E9D7750193D4825007B27AF /* MFDAddBookItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFDAddBookItemViewController.h; sourceTree = "<group>"; };
 		3E9D7751193D4825007B27AF /* MFDAddBookItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFDAddBookItemViewController.m; sourceTree = "<group>"; };
+		3E9D7753193D4E47007B27AF /* MFDBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFDBook.h; sourceTree = "<group>"; };
+		3E9D7754193D4E47007B27AF /* MFDBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFDBook.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +136,8 @@
 				3E9D772D193D4369007B27AF /* Images.xcassets */,
 				3E9D772A193D4369007B27AF /* Books.xcdatamodeld */,
 				3E9D771F193D4369007B27AF /* Supporting Files */,
+				3E9D7753193D4E47007B27AF /* MFDBook.h */,
+				3E9D7754193D4E47007B27AF /* MFDBook.m */,
 			);
 			path = Books;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 			files = (
 				3E9D774F193D4802007B27AF /* MFDBookListTableViewController.m in Sources */,
 				3E9D7752193D4825007B27AF /* MFDAddBookItemViewController.m in Sources */,
+				3E9D7755193D4E47007B27AF /* MFDBook.m in Sources */,
 				3E9D7729193D4369007B27AF /* MFDAppDelegate.m in Sources */,
 				3E9D772C193D4369007B27AF /* Books.xcdatamodeld in Sources */,
 				3E9D7725193D4369007B27AF /* main.m in Sources */,
