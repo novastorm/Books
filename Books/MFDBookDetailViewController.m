@@ -85,7 +85,7 @@
 
 - (void)setShowing
 {
-    NSLog(@"setCreating");
+    NSLog(@"setShowing");
     [self setEditing:NO animated:YES];
 }
 
@@ -100,7 +100,7 @@
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
-    NSLog(@"setEditing");
+    NSLog(@"setEditing [%hhd]", editing);
     [super setEditing:editing animated:animated];
     if (editing == YES){
         // Change views to edit mode.
@@ -109,12 +109,17 @@
 
         self.titleTextField.enabled = editing;
         self.authorTextField.enabled = editing;
+        self.copyrightTextField.enabled = editing;
         
     }
     else {
         // Save the changes if needed and change the views to noneditable.
         self.leftBarButtonItem = self.navigationItem.leftBarButtonItem;
         self.navigationItem.leftBarButtonItem = nil;
+        
+        self.titleTextField.enabled = editing;
+        self.authorTextField.enabled = editing;
+        self.copyrightTextField.enabled = editing;
     }
 }
 

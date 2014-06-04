@@ -145,7 +145,7 @@
     }
     else if ([[segue identifier] isEqualToString:@"ShowBook"]) {
         NSLog(@"ShowBook");
-        MFDBookDetailViewController *bookDetailViewController = (MFDBookDetailViewController *)segue.destinationViewController;
+        MFDBookDetailViewController *bookDetailViewController = (MFDBookDetailViewController *)[segue destinationViewController];
 
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         MFDBook *selectedBook = (MFDBook *)[self.books objectAtIndex:indexPath.row];
