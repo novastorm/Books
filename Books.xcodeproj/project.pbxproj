@@ -476,6 +476,7 @@
 				3E9D7747193D4369007B27AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3E9D7748193D4369007B27AF /* Build configuration list for PBXNativeTarget "BooksTests" */ = {
 			isa = XCConfigurationList;
@@ -484,6 +485,7 @@
 				3E9D774A193D4369007B27AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

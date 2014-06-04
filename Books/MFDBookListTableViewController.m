@@ -138,13 +138,13 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([[segue identifier] isEqualToString:@"CreateBook"]) {
-        NSLog(@"CreateBook");
+        ALog(@"CreateBook");
         UINavigationController *navController = (UINavigationController *)[segue destinationViewController];
         MFDBookDetailViewController *bookDetailViewController = (MFDBookDetailViewController *)[navController topViewController];
         [bookDetailViewController setCreating];
     }
     else if ([[segue identifier] isEqualToString:@"ShowBook"]) {
-        NSLog(@"ShowBook");
+        ALog(@"ShowBook");
         MFDBookDetailViewController *bookDetailViewController = (MFDBookDetailViewController *)[segue destinationViewController];
 
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
@@ -157,11 +157,12 @@
 
 -(IBAction)cancelReturnToList:(UIStoryboardSegue *)segue
 {
-    
+    ALog();
 }
 
 -(IBAction)storeReturnToList:(UIStoryboardSegue *)segue
 {
+    ALog();
     MFDBookDetailViewController *source = [segue sourceViewController];
     MFDBook *book = source.book;
     if (book != nil) {

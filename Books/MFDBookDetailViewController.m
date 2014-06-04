@@ -85,13 +85,13 @@
 
 - (void)setShowing
 {
-    NSLog(@"setShowing");
+    ALog();
     [self setEditing:NO animated:YES];
 }
 
 - (void)setCreating
 {
-    NSLog(@"setCreating");
+    ALog();
     self.leftBarButtonItem = self.navigationItem.leftBarButtonItem;
     [self setEditing:YES animated:YES];
 }
@@ -100,7 +100,7 @@
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
-    NSLog(@"setEditing [%hhd]", editing);
+    ALog();
     [super setEditing:editing animated:animated];
     if (editing == YES){
         // Change views to edit mode.
