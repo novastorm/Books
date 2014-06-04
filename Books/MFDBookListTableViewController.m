@@ -8,10 +8,11 @@
 
 #import "MFDBookListTableViewController.h"
 #import "MFDBook.h"
-#import "MFDAddBookItemViewController.h"
+#import "MFDBookDetailViewController.h"
 
 @interface MFDBookListTableViewController ()
 
+@property (nonatomic, weak) NSFetchedResultsController *fetchedResultsController;
 @property NSMutableArray *books;
 
 @end
@@ -129,7 +130,6 @@
 }
 */
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -137,17 +137,32 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-}
-*/
+    if ([[segue identifier] isEqualToString:@"CreateBook"]) {
+        NSLog(@"CreateBook");
+        UINavigationController *navController = (UINavigationController *)[segue destinationViewController];
+        MFDBookDetailViewController *bookDetailViewController = (MFDBookDetailViewController *)[navController topViewController];
+        [bookDetailViewController setCreating];
+    }
+    else if ([[segue identifier] isEqualToString:@"ShowBook"]) {
+        NSLog(@"ShowBook");
+        MFDBookDetailViewController *bookDetailViewController = (MFDBookDetailViewController *)segue.destinationViewController;
 
--(IBAction)cancelCreateReturnToList:(UIStoryboardSegue *)segue
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        MFDBook *selectedBook = (MFDBook *)[self.books objectAtIndex:indexPath.row];
+
+        bookDetailViewController.book = selectedBook;
+        [bookDetailViewController setShowing];
+    }
+}
+
+-(IBAction)cancelReturnToList:(UIStoryboardSegue *)segue
 {
     
 }
 
--(IBAction)storeCreateReturnToList:(UIStoryboardSegue *)segue
+-(IBAction)storeReturnToList:(UIStoryboardSegue *)segue
 {
-    MFDAddBookItemViewController *source = [segue sourceViewController];
+    MFDBookDetailViewController *source = [segue sourceViewController];
     MFDBook *book = source.book;
     if (book != nil) {
         [self.books addObject:book];

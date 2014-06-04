@@ -10,7 +10,7 @@
 
 @interface MFDBookListTableViewController : UITableViewController
 
--(IBAction)cancelCreateReturnToList:(UIStoryboardSegue *)segue;
--(IBAction)storeCreateReturnToList:(UIStoryboardSegue *)segue;
+-(IBAction)cancelReturnToList:(UIStoryboardSegue *)segue;
+-(IBAction)storeReturnToList:(UIStoryboardSegue *)segue;
 
 @end
