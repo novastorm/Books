@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *copyrightTextField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 
+@property(nonatomic, getter=isCreating) BOOL creating;
 @property (nonatomic, strong) UIBarButtonItem *leftBarButtonItem;
 @property (nonatomic, strong) UIBarButtonItem *rightBarButtonItem;
 
@@ -36,7 +37,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,9 +54,15 @@
 
 -(void)updateDetails
 {
-    self.titleTextField.text = self.book.title;
-    self.authorTextField.text = self.book.author;
-    self.copyrightTextField.text = [self.dateFormatter stringFromDate:self.book.copyright];
+    ALog();
+    if (self.creating) {
+        [self setEditing:YES animated:YES];
+    }
+    else {
+        self.titleTextField.text = self.book.title;
+        self.authorTextField.text = self.book.author;
+        self.copyrightTextField.text = [self.dateFormatter stringFromDate:self.book.copyright];
+    }
 }
 
 -(NSDateFormatter *)dateFormatter
@@ -92,8 +98,8 @@
 - (void)setCreating
 {
     ALog();
-    self.leftBarButtonItem = self.navigationItem.leftBarButtonItem;
-    [self setEditing:YES animated:YES];
+
+    self.creating = YES;
 }
 
 #pragma mark - Editing
@@ -102,13 +108,24 @@
 {
     ALog();
     [super setEditing:editing animated:animated];
+
+    if (self.creating) {
+        self.leftBarButtonItem = self.navigationItem.leftBarButtonItem;
+    }
+    else {
+        self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    }
+    
     if (editing == YES){
         // Change views to edit mode.
         self.navigationItem.leftBarButtonItem = self.leftBarButtonItem;
         self.leftBarButtonItem = nil;
 
+        self.titleTextField.borderStyle = UITextBorderStyleRoundedRect;
         self.titleTextField.enabled = editing;
+        self.authorTextField.borderStyle = UITextBorderStyleRoundedRect;
         self.authorTextField.enabled = editing;
+        self.copyrightTextField.borderStyle = UITextBorderStyleRoundedRect;
         self.copyrightTextField.enabled = editing;
         
     }
@@ -117,8 +134,11 @@
         self.leftBarButtonItem = self.navigationItem.leftBarButtonItem;
         self.navigationItem.leftBarButtonItem = nil;
         
+        self.titleTextField.borderStyle = UITextBorderStyleNone;
         self.titleTextField.enabled = editing;
+        self.authorTextField.borderStyle = UITextBorderStyleNone;
         self.authorTextField.enabled = editing;
+        self.copyrightTextField.borderStyle = UITextBorderStyleNone;
         self.copyrightTextField.enabled = editing;
     }
 }
