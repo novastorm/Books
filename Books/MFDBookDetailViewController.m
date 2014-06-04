@@ -52,6 +52,10 @@
     
 }
 
+- (IBAction)saveDetails:(id)sender {
+    self.creating = NO;
+}
+
 -(void)updateDetails
 {
     ALog();
@@ -140,6 +144,10 @@
         self.authorTextField.enabled = editing;
         self.copyrightTextField.borderStyle = UITextBorderStyleNone;
         self.copyrightTextField.enabled = editing;
+        
+        self.book.title = self.titleTextField.text;
+        self.book.author = self.authorTextField.text;
+        
     }
 }
 
