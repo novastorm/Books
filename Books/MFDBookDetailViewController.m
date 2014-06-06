@@ -62,21 +62,15 @@
     [self.delegate unwindBookDetailViewController:self];
 }
 
-- (IBAction)saveDetails:(id)sender {
-    self.creating = NO;
-}
-
 -(void)updateDetails
 {
     ALog();
     if (self.creating == YES) {
         [self setEditing:YES animated:YES];
     }
-//    else {
-        self.titleTextField.text = self.book.title;
-        self.authorTextField.text = self.book.author;
-        self.copyrightTextField.text = [self.dateFormatter stringFromDate:self.book.copyright];
-//    }
+    self.titleTextField.text = self.book.title;
+    self.authorTextField.text = self.book.author;
+    self.copyrightTextField.text = [self.dateFormatter stringFromDate:self.book.copyright];
 }
 
 -(NSDateFormatter *)dateFormatter
@@ -97,6 +91,15 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if (self.creating
+        && (self.titleTextField.text.length > 0
+            || self.authorTextField.text.length > 0)
+        ) {
+        self.book = [[MFDBook alloc] init];
+        self.book.title = self.titleTextField.text;
+        self.book.author = self.authorTextField.text;
+    }
+    self.creating = NO;
 }
 
 #pragma mark - Creating
@@ -113,6 +116,7 @@
     ALog();
 
     self.creating = YES;
+    self.book = [[MFDBook alloc] init];
     self.leftBarButtonItem = self.cancelButtonItem;
 }
 

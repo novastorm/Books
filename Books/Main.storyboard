@@ -179,8 +179,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="uQh-cB-CVq">
                             <connections>
-                                <action selector="saveDetails:" destination="TX8-aj-LGf" id="g5T-Kh-Udc"/>
-                                <segue destination="NAC-nU-sm5" kind="unwind" unwindAction="storeReturnToList:" id="9Lm-NM-DTV"/>
+                                <segue destination="NAC-nU-sm5" kind="unwind" unwindAction="storeReturnToList:" id="STp-jc-4n3"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

@@ -174,7 +174,6 @@
 -(IBAction)storeReturnToList:(UIStoryboardSegue *)segue
 {
     ALog();
-    return;
     MFDBookDetailViewController *source = [segue sourceViewController];
     MFDBook *book = source.book;
     if (book != nil) {
