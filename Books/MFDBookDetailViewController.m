@@ -15,10 +15,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *copyrightTextField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 
-@property(nonatomic, getter=isCreating) BOOL creating;
+@property (nonatomic, getter=isCreating) BOOL creating;
 @property (nonatomic, strong) UIBarButtonItem *leftBarButtonItem;
 @property (nonatomic, strong) UIBarButtonItem *rightBarButtonItem;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButtonItem;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButtonItem;
 
 @end
 
@@ -37,6 +39,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.cancelButtonItem = self.navigationItem.leftBarButtonItem;
+    self.saveButtonItem = self.navigationItem.rightBarButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,6 +56,12 @@
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    ALog();
+    [self.delegate unwindBookDetailViewController:self];
+}
+
 - (IBAction)saveDetails:(id)sender {
     self.creating = NO;
 }
@@ -59,14 +69,14 @@
 -(void)updateDetails
 {
     ALog();
-    if (self.creating) {
+    if (self.creating == YES) {
         [self setEditing:YES animated:YES];
     }
-    else {
+//    else {
         self.titleTextField.text = self.book.title;
         self.authorTextField.text = self.book.author;
         self.copyrightTextField.text = [self.dateFormatter stringFromDate:self.book.copyright];
-    }
+//    }
 }
 
 -(NSDateFormatter *)dateFormatter
@@ -80,7 +90,6 @@
     return dateFormatter;
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -89,14 +98,14 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
 
 #pragma mark - Creating
 
 - (void)setShowing
 {
     ALog();
-    [self setEditing:NO animated:YES];
+    self.navigationItem.leftBarButtonItem = nil;
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)setCreating
@@ -104,6 +113,7 @@
     ALog();
 
     self.creating = YES;
+    self.leftBarButtonItem = self.cancelButtonItem;
 }
 
 #pragma mark - Editing
@@ -113,13 +123,6 @@
     ALog();
     [super setEditing:editing animated:animated];
 
-    if (self.creating) {
-        self.leftBarButtonItem = self.navigationItem.leftBarButtonItem;
-    }
-    else {
-        self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    }
-    
     if (editing == YES){
         // Change views to edit mode.
         self.navigationItem.leftBarButtonItem = self.leftBarButtonItem;
@@ -147,7 +150,6 @@
         
         self.book.title = self.titleTextField.text;
         self.book.author = self.authorTextField.text;
-        
     }
 }
 

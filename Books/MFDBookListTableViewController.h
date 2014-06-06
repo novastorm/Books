@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MFDBookDetailViewController.h"
 
-@interface MFDBookListTableViewController : UITableViewController
+@interface MFDBookListTableViewController : UITableViewController <MFDBookDetailDelegate>
 
--(IBAction)cancelReturnToList:(UIStoryboardSegue *)segue;
--(IBAction)storeReturnToList:(UIStoryboardSegue *)segue;
+- (IBAction)cancelReturnToList:(UIStoryboardSegue *)segue;
+- (IBAction)storeReturnToList:(UIStoryboardSegue *)segue;
 
 @end

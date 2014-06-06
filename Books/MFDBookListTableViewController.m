@@ -67,6 +67,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Book detail support
+
+- (void)unwindBookDetailViewController:(MFDBookDetailViewController *)bookDetailViewController
+{
+    ALog();
+    [self.tableView reloadData];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -88,7 +96,9 @@
     
     // Configure the cell...
     MFDBook *book = [self.books objectAtIndex:indexPath.row];
+    
     cell.textLabel.text = book.title;
+    cell.detailTextLabel.text = book.author;
     
     return cell;
 }
@@ -150,6 +160,7 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         MFDBook *selectedBook = (MFDBook *)[self.books objectAtIndex:indexPath.row];
 
+        bookDetailViewController.delegate = self;
         bookDetailViewController.book = selectedBook;
         [bookDetailViewController setShowing];
     }
@@ -163,6 +174,7 @@
 -(IBAction)storeReturnToList:(UIStoryboardSegue *)segue
 {
     ALog();
+    return;
     MFDBookDetailViewController *source = [segue sourceViewController];
     MFDBook *book = source.book;
     if (book != nil) {
