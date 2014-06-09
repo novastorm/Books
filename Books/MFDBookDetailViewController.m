@@ -41,6 +41,7 @@
     // Do any additional setup after loading the view.
     self.cancelButtonItem = self.navigationItem.leftBarButtonItem;
     self.saveButtonItem = self.navigationItem.rightBarButtonItem;
+    [self configureDatePicker];
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,18 +63,34 @@
     [self.delegate unwindBookDetailViewController:self];
 }
 
--(void)updateDetails
+- (void)updateDetails
 {
     ALog();
-    if (self.creating == YES) {
-        [self setEditing:YES animated:YES];
-    }
     self.titleTextField.text = self.book.title;
     self.authorTextField.text = self.book.author;
     self.copyrightTextField.text = [self.dateFormatter stringFromDate:self.book.copyright];
+
+    if (self.creating) {
+        [self setEditing:YES animated:YES];
+    }
+    else {
+        [self setEditing:NO animated:YES];
+    }
 }
 
--(NSDateFormatter *)dateFormatter
+- (void)updateCopyrightTextField
+{
+    ALog();
+    self.copyrightTextField.text = [self.dateFormatter stringFromDate:self.datePicker.date];
+}
+
+- (void)configureDatePicker
+{
+    [self.datePicker addTarget:self action:@selector(updateCopyrightTextField) forControlEvents:UIControlEventValueChanged];
+    [self updateCopyrightTextField];
+}
+
+- (NSDateFormatter *)dateFormatter
 {
     static NSDateFormatter *dateFormatter = nil;
     if (dateFormatter == nil) {
@@ -138,7 +155,13 @@
         self.authorTextField.enabled = editing;
         self.copyrightTextField.borderStyle = UITextBorderStyleRoundedRect;
         self.copyrightTextField.enabled = editing;
-        
+        if (self.book.copyright) {
+            [self.datePicker setDate:self.book.copyright animated:NO];
+        }
+        else {
+            [self.datePicker setDate:[NSDate date] animated:NO];
+        }
+        self.datePicker.hidden = NO;
     }
     else {
         // Save the changes if needed and change the views to noneditable.
@@ -151,9 +174,11 @@
         self.authorTextField.enabled = editing;
         self.copyrightTextField.borderStyle = UITextBorderStyleNone;
         self.copyrightTextField.enabled = editing;
+        self.datePicker.hidden = YES;
         
         self.book.title = self.titleTextField.text;
         self.book.author = self.authorTextField.text;
+        self.book.copyright = [self.dateFormatter dateFromString:self.copyrightTextField.text];
     }
 }
 
