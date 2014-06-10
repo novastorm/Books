@@ -126,18 +126,16 @@
 		3E9D771E193D4369007B27AF /* Books */ = {
 			isa = PBXGroup;
 			children = (
-				3E9D774D193D4802007B27AF /* MFDBookListTableViewController.h */,
-				3E9D774E193D4802007B27AF /* MFDBookListTableViewController.m */,
-				3E9D774B193D439B007B27AF /* Main.storyboard */,
-				3E9D7756193E385D007B27AF /* MFDBookDetailViewController.h */,
-				3E9D7757193E385D007B27AF /* MFDBookDetailViewController.m */,
 				3E9D7727193D4369007B27AF /* MFDAppDelegate.h */,
 				3E9D7728193D4369007B27AF /* MFDAppDelegate.m */,
-				3E9D772D193D4369007B27AF /* Images.xcassets */,
-				3E9D772A193D4369007B27AF /* Books.xcdatamodeld */,
+				3EFDAC02194673C9000847FF /* Resources */,
+				3EFDAC0319469939000847FF /* Utilities */,
+				3EFDAC01194673A9000847FF /* Models */,
+				3E9D774D193D4802007B27AF /* MFDBookListTableViewController.h */,
+				3E9D774E193D4802007B27AF /* MFDBookListTableViewController.m */,
+				3E9D7756193E385D007B27AF /* MFDBookDetailViewController.h */,
+				3E9D7757193E385D007B27AF /* MFDBookDetailViewController.m */,
 				3E9D771F193D4369007B27AF /* Supporting Files */,
-				3E9D7753193D4E47007B27AF /* MFDBook.h */,
-				3E9D7754193D4E47007B27AF /* MFDBook.m */,
 			);
 			path = Books;
 			sourceTree = "<group>";
@@ -169,6 +167,32 @@
 				3E9D773E193D4369007B27AF /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3EFDAC01194673A9000847FF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3E9D7753193D4E47007B27AF /* MFDBook.h */,
+				3E9D7754193D4E47007B27AF /* MFDBook.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		3EFDAC02194673C9000847FF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3E9D774B193D439B007B27AF /* Main.storyboard */,
+				3E9D772D193D4369007B27AF /* Images.xcassets */,
+				3E9D772A193D4369007B27AF /* Books.xcdatamodeld */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		3EFDAC0319469939000847FF /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +243,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Adland Lee";
 				TargetAttributes = {
+					3E9D7712193D4369007B27AF = {
+						DevelopmentTeam = 4GUEER2J93;
+					};
 					3E9D7732193D4369007B27AF = {
 						TestTargetID = 3E9D7712193D4369007B27AF;
 					};
@@ -347,7 +374,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -379,7 +406,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -390,9 +417,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Books/Books-Prefix.pch";
 				INFOPLIST_FILE = "Books/Books-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -403,9 +432,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Books/Books-Prefix.pch";
 				INFOPLIST_FILE = "Books/Books-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
