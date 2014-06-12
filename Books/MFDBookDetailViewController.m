@@ -110,19 +110,6 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if (self.creating
-        && (self.titleTextField.text.length > 0
-            || self.authorTextField.text.length > 0)
-        ) {
-//        self.book = [[MFDBook alloc] init];
-//        self.book.title = self.titleTextField.text;
-//        self.book.author = self.authorTextField.text;
-        [self.book setValue:self.titleTextField.text forKey:@"title"];
-        [self.book setValue:self.authorTextField.text forKey:@"author"];
-        [self.book setValue:[self.dateFormatter dateFromString:self.copyrightTextField.text] forKey:@"copyright"];
-        ALog();
-    }
-    self.creating = NO;
 }
 
 #pragma mark - Creating
@@ -130,6 +117,7 @@
 - (void)setShowing
 {
     ALog();
+    self.creating = NO;
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -181,13 +169,35 @@
         self.copyrightTextField.enabled = editing;
         self.datePicker.hidden = YES;
         
-//        self.book.title = self.titleTextField.text;
-//        self.book.author = self.authorTextField.text;
-//        self.book.copyright = [self.dateFormatter dateFromString:self.copyrightTextField.text];
+        [self.book setValue:self.titleTextField.text forKey:@"title"];
+        [self.book setValue:self.authorTextField.text forKey:@"author"];
+        [self.book setValue:[self.dateFormatter dateFromString:self.copyrightTextField.text] forKey:@"copyright"];
     }
 }
 
 - (IBAction)save:(id)sender {
+    if (self.creating
+        && (self.titleTextField.text.length > 0
+            || self.authorTextField.text.length > 0)
+        ) {
+        //        self.book = [[MFDBook alloc] init];
+        //        self.book.title = self.titleTextField.text;
+        //        self.book.author = self.authorTextField.text;
+        [self.book setValue:self.titleTextField.text forKey:@"title"];
+        [self.book setValue:self.authorTextField.text forKey:@"author"];
+        [self.book setValue:[self.dateFormatter dateFromString:self.copyrightTextField.text] forKey:@"copyright"];
+        ALog();
+        NSError *error;
+        if (![self.managedObjectContext save:&error]) {
+            /*
+             Replace this implementation with code to handle the error appropriately.
+             
+             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+             */
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
     [self.delegate returnFromBookDetailViewController:self didFinishWithSave:YES];
 }
 
