@@ -71,9 +71,10 @@
 
 #pragma mark - Book detail support
 
-- (void)unwindBookDetailViewController:(MFDBookDetailViewController *)bookDetailViewController
+- (void)returnFromBookDetailViewController:(MFDBookDetailViewController *)controller didFinishWithSave:(BOOL)save
 {
-    ALog();
+    ALog(@"BOOL[%@]", save ? @"YES" : @"NO");
+    [self dismissViewControllerAnimated:YES completion:nil];
     [self.tableView reloadData];
 }
 
@@ -267,23 +268,21 @@
         MFDBookDetailViewController *bookDetailViewController = (MFDBookDetailViewController *)[navController topViewController];
         bookDetailViewController.delegate = self;
         
-        ALog();
         NSManagedObjectContext *creatingContext = [
         	[NSManagedObjectContext alloc]
             initWithConcurrencyType:NSMainQueueConcurrencyType
             ];
-        ALog();
         [creatingContext setParentContext:[self.fetchedResultsController managedObjectContext]];
-        ALog();
         
         MFDBook *newBook = (MFDBook *)[
         	NSEntityDescription
             insertNewObjectForEntityForName:@"Book"
-            inManagedObjectContext:creatingContext
+            inManagedObjectContext:self.managedObjectContext
             ];
         
-        bookDetailViewController.managedObjectContext = creatingContext;
+        bookDetailViewController.managedObjectContext = self.managedObjectContext;
         bookDetailViewController.book = newBook;
+        [bookDetailViewController setCreating];
     }
     else if ([[segue identifier] isEqualToString:@"ShowBook"]) {
         ALog(@"ShowBook");
@@ -297,20 +296,20 @@
     }
 }
 
--(IBAction)cancelReturnToList:(UIStoryboardSegue *)segue
-{
-    ALog();
-}
-
--(IBAction)storeReturnToList:(UIStoryboardSegue *)segue
-{
-    ALog();
-    MFDBookDetailViewController *source = [segue sourceViewController];
-    MFDBook *book = source.book;
-    if (book != nil) {
-//        [self.books addObject:book];
-        [self.tableView reloadData];
-    }
-}
+//-(IBAction)cancelReturnToList:(UIStoryboardSegue *)segue
+//{
+//    ALog();
+//}
+//
+//-(IBAction)storeReturnToList:(UIStoryboardSegue *)segue
+//{
+//    ALog();
+//    MFDBookDetailViewController *source = [segue sourceViewController];
+//    MFDBook *book = source.book;
+//    if (book != nil) {
+////        [self.books addObject:book];
+//        [self.tableView reloadData];
+//    }
+//}
 
 @end

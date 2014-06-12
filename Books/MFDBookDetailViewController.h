@@ -28,6 +28,6 @@
 
 @protocol MFDBookDetailDelegate <NSObject>
 
-- (void)unwindBookDetailViewController:(MFDBookDetailViewController *)bookDetailViewController;
+- (void)returnFromBookDetailViewController:(MFDBookDetailViewController *)controller didFinishWithSave:(BOOL)save;
 
 @end

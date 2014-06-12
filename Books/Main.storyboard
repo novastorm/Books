@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.17" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="rNG-S9-ZEi">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.11"/>
     </dependencies>
     <scenes>
@@ -146,26 +147,25 @@
                     <navigationItem key="navigationItem" title="Info" id="g5H-QE-gGd">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="FnC-nc-oBY">
                             <connections>
-                                <segue destination="NAC-nU-sm5" kind="unwind" unwindAction="cancelReturnToList:" id="bpw-X6-PtL"/>
+                                <action selector="cancel:" destination="TX8-aj-LGf" id="3rY-ih-Zfl"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="uQh-cB-CVq">
                             <connections>
-                                <segue destination="NAC-nU-sm5" kind="unwind" unwindAction="storeReturnToList:" id="STp-jc-4n3"/>
+                                <action selector="save:" destination="TX8-aj-LGf" id="sbd-3f-TV0"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="authorTextField" destination="CoB-GJ-2YI" id="DaQ-qP-EE0"/>
-                        <outlet property="cancelButtonItem" destination="FnC-nc-oBY" id="Osy-Fx-dTn"/>
+                        <outlet property="cancelButtonItem" destination="FnC-nc-oBY" id="0M0-DW-E2z"/>
                         <outlet property="copyrightTextField" destination="49P-uM-Dnz" id="Lz0-jB-GXv"/>
                         <outlet property="datePicker" destination="wdw-9M-gdb" id="Ih2-yY-iqd"/>
-                        <outlet property="saveButtonItem" destination="uQh-cB-CVq" id="LbS-3M-EM4"/>
+                        <outlet property="saveButtonItem" destination="uQh-cB-CVq" id="8ls-it-oXZ"/>
                         <outlet property="titleTextField" destination="jtT-19-sYh" id="8Td-NV-eDR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZGg-9V-79t" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="NAC-nU-sm5" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1508" y="172"/>
         </scene>

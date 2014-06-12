@@ -13,7 +13,4 @@
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-- (IBAction)cancelReturnToList:(UIStoryboardSegue *)segue;
-- (IBAction)storeReturnToList:(UIStoryboardSegue *)segue;
-
 @end

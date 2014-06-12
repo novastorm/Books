@@ -23,6 +23,9 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButtonItem;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButtonItem;
 
+- (IBAction)save:(id)sender;
+- (IBAction)cancel:(id)sender;
+
 @end
 
 @implementation MFDBookDetailViewController
@@ -60,21 +63,19 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    ALog();
-    [self.delegate unwindBookDetailViewController:self];
 }
 
 - (void)updateDetails
 {
     ALog();
-    self.titleTextField.text = self.book.title;
-    self.authorTextField.text = self.book.author;
-    self.copyrightTextField.text = [self.dateFormatter stringFromDate:self.book.copyright];
 
     if (self.creating) {
         [self setEditing:YES animated:YES];
     }
     else {
+        self.titleTextField.text = self.book.title;
+        self.authorTextField.text = self.book.author;
+        self.copyrightTextField.text = [self.dateFormatter stringFromDate:self.book.copyright];
         [self setEditing:NO animated:YES];
     }
 }
@@ -113,9 +114,13 @@
         && (self.titleTextField.text.length > 0
             || self.authorTextField.text.length > 0)
         ) {
-        self.book = [[MFDBook alloc] init];
-        self.book.title = self.titleTextField.text;
-        self.book.author = self.authorTextField.text;
+//        self.book = [[MFDBook alloc] init];
+//        self.book.title = self.titleTextField.text;
+//        self.book.author = self.authorTextField.text;
+        [self.book setValue:self.titleTextField.text forKey:@"title"];
+        [self.book setValue:self.authorTextField.text forKey:@"author"];
+        [self.book setValue:[self.dateFormatter dateFromString:self.copyrightTextField.text] forKey:@"copyright"];
+        ALog();
     }
     self.creating = NO;
 }
@@ -134,7 +139,6 @@
     ALog();
 
     self.creating = YES;
-    self.book = [[MFDBook alloc] init];
     self.leftBarButtonItem = self.cancelButtonItem;
 }
 
@@ -177,10 +181,18 @@
         self.copyrightTextField.enabled = editing;
         self.datePicker.hidden = YES;
         
-        self.book.title = self.titleTextField.text;
-        self.book.author = self.authorTextField.text;
-        self.book.copyright = [self.dateFormatter dateFromString:self.copyrightTextField.text];
+//        self.book.title = self.titleTextField.text;
+//        self.book.author = self.authorTextField.text;
+//        self.book.copyright = [self.dateFormatter dateFromString:self.copyrightTextField.text];
     }
+}
+
+- (IBAction)save:(id)sender {
+    [self.delegate returnFromBookDetailViewController:self didFinishWithSave:YES];
+}
+
+- (IBAction)cancel:(id)sender {
+    [self.delegate returnFromBookDetailViewController:self didFinishWithSave:NO];
 }
 
 @end
