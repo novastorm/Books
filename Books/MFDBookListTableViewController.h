@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MFDBookDetailViewController.h"
 
-@interface MFDBookListTableViewController : UITableViewController <MFDBookDetailDelegate>
+@interface MFDBookListTableViewController : UITableViewController <NSFetchedResultsControllerDelegate, MFDBookDetailDelegate>
+
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 - (IBAction)cancelReturnToList:(UIStoryboardSegue *)segue;
 - (IBAction)storeReturnToList:(UIStoryboardSegue *)segue;

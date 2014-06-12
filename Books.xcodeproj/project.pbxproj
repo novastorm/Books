@@ -39,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E80B9C4194A3D000069CE0A /* MFDUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MFDUtilities.h; sourceTree = "<group>"; };
 		3E9D7713193D4369007B27AF /* Books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Books.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E9D7716193D4369007B27AF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3E9D7718193D4369007B27AF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -128,13 +129,13 @@
 			children = (
 				3E9D7727193D4369007B27AF /* MFDAppDelegate.h */,
 				3E9D7728193D4369007B27AF /* MFDAppDelegate.m */,
-				3EFDAC02194673C9000847FF /* Resources */,
-				3EFDAC0319469939000847FF /* Utilities */,
-				3EFDAC01194673A9000847FF /* Models */,
+				3E9D774B193D439B007B27AF /* Main.storyboard */,
 				3E9D774D193D4802007B27AF /* MFDBookListTableViewController.h */,
 				3E9D774E193D4802007B27AF /* MFDBookListTableViewController.m */,
 				3E9D7756193E385D007B27AF /* MFDBookDetailViewController.h */,
 				3E9D7757193E385D007B27AF /* MFDBookDetailViewController.m */,
+				3EFDAC01194673A9000847FF /* Models */,
+				3EFDAC02194673C9000847FF /* Resources */,
 				3E9D771F193D4369007B27AF /* Supporting Files */,
 			);
 			path = Books;
@@ -143,6 +144,7 @@
 		3E9D771F193D4369007B27AF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3E80B9C4194A3D000069CE0A /* MFDUtilities.h */,
 				3E9D7720193D4369007B27AF /* Books-Info.plist */,
 				3E9D7721193D4369007B27AF /* InfoPlist.strings */,
 				3E9D7724193D4369007B27AF /* main.m */,
@@ -181,18 +183,10 @@
 		3EFDAC02194673C9000847FF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3E9D774B193D439B007B27AF /* Main.storyboard */,
 				3E9D772D193D4369007B27AF /* Images.xcassets */,
 				3E9D772A193D4369007B27AF /* Books.xcdatamodeld */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		3EFDAC0319469939000847FF /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

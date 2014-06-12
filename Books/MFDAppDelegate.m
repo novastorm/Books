@@ -7,6 +7,7 @@
 //
 
 #import "MFDAppDelegate.h"
+#import "MFDBookListTableViewController.h"
 
 @implementation MFDAppDelegate
 
@@ -20,6 +21,9 @@
 //    // Override point for customization after application launch.
 //    self.window.backgroundColor = [UIColor whiteColor];
 //    [self.window makeKeyAndVisible];
+    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    MFDBookListTableViewController  *rootViewController = (MFDBookListTableViewController *)[[navigationController viewControllers] objectAtIndex:0];
+    rootViewController.managedObjectContext = self.managedObjectContext;
     return YES;
 }
 

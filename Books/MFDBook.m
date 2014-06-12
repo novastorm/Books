@@ -10,5 +10,7 @@
 
 @implementation MFDBook
 
+@dynamic title, author, copyright;
+
 @end
 

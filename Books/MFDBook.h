@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 Adland Lee. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
-@interface MFDBook : NSObject
+@interface MFDBook : NSManagedObject
 
-@property NSString *title;
-@property NSString *author;
-@property NSDate *copyright;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *author;
+@property (nonatomic, strong) NSDate *copyright;
 
 @end

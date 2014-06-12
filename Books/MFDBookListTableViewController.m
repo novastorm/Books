@@ -12,7 +12,7 @@
 
 @interface MFDBookListTableViewController ()
 
-@property (nonatomic, weak) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property NSMutableArray *books;
 
 @end
@@ -39,25 +39,27 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
-    self.books = [[NSMutableArray alloc] init];
-    [self loadInitialData];
+//    self.books = [[NSMutableArray alloc] init];
+//    [self loadInitialData];
 }
 
 - (void)loadInitialData {
-    MFDBook *item1 = [[MFDBook alloc] init];
-    item1.title = @"AAAA";
-    item1.author = @"Alpha";
-    [self.books addObject:item1];
-    
-    MFDBook *item2 = [[MFDBook alloc] init];
-    item2.title = @"BBBB";
-    item2.author = @"Bravo";
-    [self.books addObject:item2];
+//    MFDBook *item1 = [[MFDBook alloc] init];
+//    item1.title = @"AAAA";
+//    item1.author = @"Alpha";
+//    [self.books addObject:item1];
+//    
+//    MFDBook *item2 = [[MFDBook alloc] init];
+//    item2.title = @"BBBB";
+//    item2.author = @"Bravo";
+//    [self.books addObject:item2];
+//
+//    MFDBook *item3 = [[MFDBook alloc] init];
+//    item3.title = @"CCCC";
+//    item3.author = @"Charlie";
+//    [self.books addObject:item3];
 
-    MFDBook *item3 = [[MFDBook alloc] init];
-    item3.title = @"CCCC";
-    item3.author = @"Charlie";
-    [self.books addObject:item3];
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
 }
 
@@ -86,7 +88,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.books count];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -95,12 +98,16 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    MFDBook *book = [self.books objectAtIndex:indexPath.row];
+    [self configureCell:cell atIndexPath:indexPath];
+    return cell;
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    MFDBook *book = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     cell.textLabel.text = book.title;
     cell.detailTextLabel.text = book.author;
-    
-    return cell;
 }
 
 /*
@@ -139,6 +146,91 @@
     return YES;
 }
 */
+
+
+#pragma mark - Fetched results controller
+
+/*
+ Returns the fetched results controller. Creates and configures the controller if necessary.
+ */
+- (NSFetchedResultsController *)fetchedResultsController {
+    
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
+    }
+    
+    // Create and configure a fetch request with the Book entity.
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Book" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    // Create the sort descriptors array.
+    NSSortDescriptor *authorDescriptor = [[NSSortDescriptor alloc] initWithKey:@"author" ascending:YES];
+    NSSortDescriptor *titleDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+    NSArray *sortDescriptors = @[authorDescriptor, titleDescriptor];
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    
+    // Create and initialize the fetch results controller.
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"author" cacheName:@"Root"];
+    _fetchedResultsController.delegate = self;
+    
+    return _fetchedResultsController;
+}
+
+/*
+ NSFetchedResultsController delegate methods to respond to additions, removals and so on.
+ */
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    
+    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+    [self.tableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    UITableView *tableView = self.tableView;
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+    }
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
+{
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    
+    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
+    [self.tableView endUpdates];
+}
+
 
 #pragma mark - Navigation
 
