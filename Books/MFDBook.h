@@ -10,8 +10,8 @@
 
 @interface MFDBook : NSManagedObject
 
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *author;
-@property (nonatomic, strong) NSDate *copyright;
+@property (nonatomic) NSString *title;
+@property (nonatomic) NSString *author;
+@property (nonatomic) NSDate *copyright;
 
 @end

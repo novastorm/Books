@@ -7,14 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MFDBook.h"
 
 @protocol MFDBookDetailDelegate;
 
+@class MFDBook;
+
 @interface MFDBookDetailViewController : UIViewController
 
-@property (strong, nonatomic) MFDBook *book;
-@property (nonatomic, unsafe_unretained) id <MFDBookDetailDelegate> delegate;
+@property (nonatomic) MFDBook *book;
+@property (nonatomic, weak) id <MFDBookDetailDelegate> delegate;
+@property (nonatomic) NSManagedObjectContext *managedObjectContext;
 
 - (void)setCreating;
 - (void)setShowing;
@@ -26,7 +28,6 @@
 
 @protocol MFDBookDetailDelegate <NSObject>
 
-// recipe == nil on cancel
 - (void)unwindBookDetailViewController:(MFDBookDetailViewController *)bookDetailViewController;
 
 @end

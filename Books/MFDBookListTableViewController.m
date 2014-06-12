@@ -13,7 +13,7 @@
 @interface MFDBookListTableViewController ()
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
-@property NSMutableArray *books;
+//@property NSMutableArray *books;
 
 @end
 
@@ -124,8 +124,20 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        [self.books removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//        [self.books removeObjectAtIndex:indexPath.row];
+        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        
+        NSError *error;
+        if (![context save:&error]) {
+            /*
+             Replace this implementation with code to handle the error appropriately.
+             
+             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+             */
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
@@ -161,7 +173,11 @@
     
     // Create and configure a fetch request with the Book entity.
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Book" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [
+    	NSEntityDescription
+        entityForName:@"Book"
+        inManagedObjectContext:self.managedObjectContext
+        ];
     [fetchRequest setEntity:entity];
     
     // Create the sort descriptors array.
@@ -171,7 +187,13 @@
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     // Create and initialize the fetch results controller.
-    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"author" cacheName:@"Root"];
+    _fetchedResultsController = [
+    	[NSFetchedResultsController alloc]
+        initWithFetchRequest:fetchRequest
+        managedObjectContext:self.managedObjectContext
+        sectionNameKeyPath:@"author"
+        cacheName:@"Root"
+        ];
     _fetchedResultsController.delegate = self;
     
     return _fetchedResultsController;
@@ -243,16 +265,33 @@
         ALog(@"CreateBook");
         UINavigationController *navController = (UINavigationController *)[segue destinationViewController];
         MFDBookDetailViewController *bookDetailViewController = (MFDBookDetailViewController *)[navController topViewController];
-        [bookDetailViewController setCreating];
+        bookDetailViewController.delegate = self;
+        
+        ALog();
+        NSManagedObjectContext *creatingContext = [
+        	[NSManagedObjectContext alloc]
+            initWithConcurrencyType:NSMainQueueConcurrencyType
+            ];
+        ALog();
+        [creatingContext setParentContext:[self.fetchedResultsController managedObjectContext]];
+        ALog();
+        
+        MFDBook *newBook = (MFDBook *)[
+        	NSEntityDescription
+            insertNewObjectForEntityForName:@"Book"
+            inManagedObjectContext:creatingContext
+            ];
+        
+        bookDetailViewController.managedObjectContext = creatingContext;
+        bookDetailViewController.book = newBook;
     }
     else if ([[segue identifier] isEqualToString:@"ShowBook"]) {
         ALog(@"ShowBook");
         MFDBookDetailViewController *bookDetailViewController = (MFDBookDetailViewController *)[segue destinationViewController];
 
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        MFDBook *selectedBook = (MFDBook *)[self.books objectAtIndex:indexPath.row];
+        MFDBook *selectedBook = (MFDBook *)[self.fetchedResultsController objectAtIndexPath:indexPath];
 
-        bookDetailViewController.delegate = self;
         bookDetailViewController.book = selectedBook;
         [bookDetailViewController setShowing];
     }
@@ -269,7 +308,7 @@
     MFDBookDetailViewController *source = [segue sourceViewController];
     MFDBook *book = source.book;
     if (book != nil) {
-        [self.books addObject:book];
+//        [self.books addObject:book];
         [self.tableView reloadData];
     }
 }

@@ -7,6 +7,7 @@
 //
 
 #import "MFDBookDetailViewController.h"
+#import "MFDBook.h"
 
 @interface MFDBookDetailViewController ()
 
