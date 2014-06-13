@@ -67,7 +67,7 @@
 
 - (void)updateDetails
 {
-    ALog();
+    DLog();
 
     if (self.creating) {
         [self setEditing:YES animated:YES];
@@ -82,7 +82,7 @@
 
 - (void)updateCopyrightTextField
 {
-    ALog();
+    DLog();
     self.copyrightTextField.text = [self.dateFormatter stringFromDate:self.datePicker.date];
 }
 
@@ -110,13 +110,14 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    DLog();
 }
 
 #pragma mark - Creating
 
 - (void)setShowing
 {
-    ALog();
+    DLog();
     self.creating = NO;
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -124,7 +125,7 @@
 
 - (void)setCreating
 {
-    ALog();
+    DLog();
 
     self.creating = YES;
     self.leftBarButtonItem = self.cancelButtonItem;
@@ -134,7 +135,7 @@
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
-    ALog();
+    DLog();
     [super setEditing:editing animated:animated];
 
     if (editing == YES){
@@ -172,6 +173,17 @@
         [self.book setValue:self.titleTextField.text forKey:@"title"];
         [self.book setValue:self.authorTextField.text forKey:@"author"];
         [self.book setValue:[self.dateFormatter dateFromString:self.copyrightTextField.text] forKey:@"copyright"];
+
+        NSError *error;
+        if (![self.managedObjectContext save:&error]) {
+            /*
+             Replace this implementation with code to handle the error appropriately.
+             
+             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+             */
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
     }
 }
 
@@ -186,7 +198,7 @@
         [self.book setValue:self.titleTextField.text forKey:@"title"];
         [self.book setValue:self.authorTextField.text forKey:@"author"];
         [self.book setValue:[self.dateFormatter dateFromString:self.copyrightTextField.text] forKey:@"copyright"];
-        ALog();
+        DLog();
         NSError *error;
         if (![self.managedObjectContext save:&error]) {
             /*

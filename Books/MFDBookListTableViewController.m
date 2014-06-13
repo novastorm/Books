@@ -39,28 +39,16 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
-//    self.books = [[NSMutableArray alloc] init];
-//    [self loadInitialData];
-}
-
-- (void)loadInitialData {
-//    MFDBook *item1 = [[MFDBook alloc] init];
-//    item1.title = @"AAAA";
-//    item1.author = @"Alpha";
-//    [self.books addObject:item1];
-//    
-//    MFDBook *item2 = [[MFDBook alloc] init];
-//    item2.title = @"BBBB";
-//    item2.author = @"Bravo";
-//    [self.books addObject:item2];
-//
-//    MFDBook *item3 = [[MFDBook alloc] init];
-//    item3.title = @"CCCC";
-//    item3.author = @"Charlie";
-//    [self.books addObject:item3];
-
-//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    
+    NSError *error;
+    if (![[self fetchedResultsController] performFetch:&error]) {
+        /*
+         Replace this implementation with code to handle the error appropriately.
+         
+         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+         */
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -73,7 +61,7 @@
 
 - (void)returnFromBookDetailViewController:(MFDBookDetailViewController *)controller didFinishWithSave:(BOOL)save
 {
-    ALog(@"BOOL[%@]", save ? @"YES" : @"NO");
+    DLog(@"BOOL[%@]", save ? @"YES" : @"NO");
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.tableView reloadData];
 }
@@ -83,7 +71,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return [[self.fetchedResultsController sections] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -96,7 +84,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"ListPrototypeCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     // Configure the cell...
     [self configureCell:cell atIndexPath:indexPath];
@@ -110,6 +98,12 @@
     cell.textLabel.text = book.title;
     cell.detailTextLabel.text = book.author;
 }
+
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    
+//    // Display the authors' names as section headings.
+//    return [[[self.fetchedResultsController sections] objectAtIndex:section] name];
+//}
 
 /*
 // Override to support conditional editing of the table view.
@@ -252,6 +246,7 @@
     
     // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
     [self.tableView endUpdates];
+    [self.tableView reloadData];
 }
 
 
@@ -263,7 +258,7 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([[segue identifier] isEqualToString:@"CreateBook"]) {
-        ALog(@"CreateBook");
+        DLog(@"CreateBook");
         UINavigationController *navController = (UINavigationController *)[segue destinationViewController];
         MFDBookDetailViewController *bookDetailViewController = (MFDBookDetailViewController *)[navController topViewController];
         bookDetailViewController.delegate = self;
@@ -285,31 +280,16 @@
         [bookDetailViewController setCreating];
     }
     else if ([[segue identifier] isEqualToString:@"ShowBook"]) {
-        ALog(@"ShowBook");
+        DLog(@"ShowBook");
         MFDBookDetailViewController *bookDetailViewController = (MFDBookDetailViewController *)[segue destinationViewController];
 
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         MFDBook *selectedBook = (MFDBook *)[self.fetchedResultsController objectAtIndexPath:indexPath];
 
+        bookDetailViewController.managedObjectContext = self.managedObjectContext;
         bookDetailViewController.book = selectedBook;
         [bookDetailViewController setShowing];
     }
 }
-
-//-(IBAction)cancelReturnToList:(UIStoryboardSegue *)segue
-//{
-//    ALog();
-//}
-//
-//-(IBAction)storeReturnToList:(UIStoryboardSegue *)segue
-//{
-//    ALog();
-//    MFDBookDetailViewController *source = [segue sourceViewController];
-//    MFDBook *book = source.book;
-//    if (book != nil) {
-////        [self.books addObject:book];
-//        [self.tableView reloadData];
-//    }
-//}
 
 @end
